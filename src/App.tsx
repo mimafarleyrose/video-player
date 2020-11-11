@@ -1,4 +1,4 @@
-import React, { SetStateAction, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import "./App.css";
 import { Controls } from "./components/controls";
@@ -38,27 +38,28 @@ const App = () => {
   const [playing, setPlaying] = useState<boolean>(false);
 
   useEffect(() => {
-    if (secondsPlayed > ImageOneShows == secondsPlayed < ImageOneHides) {
+    if ((secondsPlayed > ImageOneShows) && (secondsPlayed < ImageOneHides)) {
       setImageVisibility(true, (input) => setImageOneVisible(input) , imageOneVisible)
     }
     if (
-      (secondsPlayed < ImageOneShows || secondsPlayed > ImageOneHides) &&
+      ((secondsPlayed < ImageOneShows) || (secondsPlayed > ImageOneHides)) &&
       imageOneVisible.visible
     ) {
       setImageVisibility(false, (input) => setImageOneVisible(input), imageOneVisible)
     }
-    if (secondsPlayed > ImageTwoShows == secondsPlayed < ImageTwoHides) {
+    if ((secondsPlayed > ImageTwoShows) && (secondsPlayed < ImageTwoHides)) {
         setImageVisibility(true, (input) => setImageTwoVisible(input), imageTwoVisible)   
     }
-    if ((secondsPlayed < ImageTwoShows || secondsPlayed > ImageTwoHides) && imageTwoVisible) {
+    if (((secondsPlayed < ImageTwoShows) || (secondsPlayed > ImageTwoHides)) && imageTwoVisible) {
       setImageVisibility(false, (input) => setImageTwoVisible(input), imageTwoVisible)
     }
-    if (secondsPlayed > ImageThreeShows == secondsPlayed < ImageThreeHides) {
+    if ((secondsPlayed > ImageThreeShows) && (secondsPlayed < ImageThreeHides)) {
       setImageVisibility(true, (input) => setImageThreeVisible(input), imageThreeVisible)
     }
-    if ((secondsPlayed < ImageThreeShows || secondsPlayed > ImageThreeHides) && imageThreeVisible) {
+    if (((secondsPlayed < ImageThreeShows) || (secondsPlayed > ImageThreeHides)) && imageThreeVisible) {
       setImageVisibility(false, (input) => setImageThreeVisible(input), imageThreeVisible)
     }
+       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [secondsPlayed]);
 
   const onProgress = (state: Progress) => {

@@ -9,6 +9,7 @@ export const ToggleableImage = ({ src, className, visible }: Props) => {
   return (
     <img
       data-cy={className}
+      alt={className}
       className={`${className} ${visible ? "visible" : ""}`}
       src={process.env.PUBLIC_URL + src}
     />
