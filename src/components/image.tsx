@@ -5,7 +5,7 @@ interface Props {
   className: string;
   visible: boolean;
 }
-export const Image = ({ src, className, visible }: Props) => {
+export const ToggleableImage = ({ src, className, visible }: Props) => {
   return (
     <img
       data-cy={className}

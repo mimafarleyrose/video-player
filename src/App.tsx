@@ -2,13 +2,9 @@ import React, { SetStateAction, useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import "./App.css";
 import { Controls } from "./components/controls";
-import { Image } from "./components/image";
-
-interface Image {
-  numberOfTimesVisible: number;
-  visible: boolean;
-  limit: number;
-}
+import { ToggleableImage } from "./components/image";
+import { Image } from "./components/utils/imageType";
+import {setImageVisibility} from './components/utils/imageVisibilitySetter'
 
 interface Progress {
   played: number;
@@ -24,46 +20,22 @@ const ImageOneHides = 8.5;
 const ImageTwoHides = 8.0;
 const ImageThreeHides = 8.5;
 
+const initialStateFactory = (limit:number):Image => {
+  return {
+    visible: false,
+    numberOfTimesVisible: 0,
+    limit: limit,
+  }
+}
+
 
 const App = () => {
-  const [imageOneVisible, setImageOneVisible] = useState<Image>({
-    visible: false,
-    numberOfTimesVisible: 0,
-    limit: 1,
-  });
-  const [imageTwoVisible, setImageTwoVisible] = useState<Image>({
-    visible: false,
-    numberOfTimesVisible: 0,
-    limit: 2,
-  });
-  const [imageThreeVisible, setImageThreeVisible] = useState<Image>({
-    visible: false,
-    numberOfTimesVisible: 0,
-    limit: 3,
-  });
+
+  const [imageOneVisible, setImageOneVisible] = useState<Image>(initialStateFactory(1));
+  const [imageTwoVisible, setImageTwoVisible] = useState<Image>(initialStateFactory(2));
+  const [imageThreeVisible, setImageThreeVisible] = useState<Image>(initialStateFactory(3));
   const [secondsPlayed, setSecondsPlayed] = useState<number>(0);
   const [playing, setPlaying] = useState<boolean>(false);
-
-  const setImageVisibility = (
-    isVisible:boolean, 
-    callback: (value: React.SetStateAction<Image>) => void, 
-    image:Image
-    ) => {
-    if (
-       image.limit >=  image.numberOfTimesVisible &&
-       isVisible !== image.visible
-    ){
-      
-    const increment = isVisible ? 1 : 0;
-    const newImage:Image = {
-      numberOfTimesVisible: image.numberOfTimesVisible + increment,
-      visible: isVisible,
-      limit: image.limit
-
-    }
-    callback(newImage)
-  }
-  }
 
   useEffect(() => {
     if (secondsPlayed > ImageOneShows == secondsPlayed < ImageOneHides) {
@@ -96,17 +68,17 @@ const App = () => {
   return (
     <div className="App">
       <div className={"image-container"}>
-      <Image
+      <ToggleableImage
         src="/images/image1.png"
         className="image-one"
         visible={imageOneVisible.visible}
         />
-        <Image
+        <ToggleableImage
         src="/images/image2.png"
         className="image-two"
         visible={imageTwoVisible.visible}
         />
-         <Image
+         <ToggleableImage
         src="/images/image3.png"
         className="image-three"
         visible={imageThreeVisible.visible}
