@@ -3,8 +3,8 @@ import ReactPlayer from "react-player";
 import "./App.css";
 import { Controls } from "./components/controls";
 import { ToggleableImage } from "./components/image";
-import { Image } from "./components/utils/imageType";
-import {setImageVisibility} from './components/utils/imageVisibilitySetter'
+import { Image } from "./components/imageType";
+import {setImageVisibility} from './components/imageVisibilitySetter'
 
 interface Progress {
   played: number;
